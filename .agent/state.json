@@ -1,6 +1,6 @@
 {
   "task": "Simplify farmer-facing Terraviva MVP for a 5-minute pitch",
-  "status": "simplified interface implemented; verified; deployment pending",
-  "verification": ["npm test: 145 pass", "main sample home renders Ana, three large actions, harvest total, access status and sensor snapshot", "private-depot isolation tests still pass", "npm run build passes", "git diff --check passes"],
+  "status": "simplified interface implemented; verified; commit pushed; Vercel build pending",
+  "verification": ["npm test: 145 pass", "main sample home renders Ana, three large actions, harvest total, access status and sensor snapshot", "SMS step renders a compact no-send conversation mock-up", "reference context cites the supplied agricultural collection without assigning rows to Ana", "private-depot isolation tests still pass", "npm run build passes", "git diff --check passes", "commit 3eb0031 pushed to origin/main"],
   "limitations": ["No actual SMS sent", "Vercel environment-name inspection found only SMS_MODE and three Twilio keys", "Shared Redis, farmer authentication, recipient map, demo enable flag and presenter hash still required", "Inbound SMS channel is unchanged"]
 }
