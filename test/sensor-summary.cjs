@@ -79,15 +79,15 @@ function dashboard({localState,search='',fetch:handleFetch=async()=>{throw Error
 
 test('returning empty demo loads a coherent sample across views and SMS updates the same wallet',async()=>{
   const h=dashboard({localState:Core.initial()});
-  assert.match(h.content(),/24\.30/);assert.match(h.content(),/Ana García/);assert.match(h.content(),/ILLUSTRATIVE SENSOR SNAPSHOT/);
+  assert.match(h.content(),/37\.60/);assert.match(h.content(),/Ana García/);assert.match(h.content(),/ILLUSTRATIVE SENSOR SNAPSHOT/);
   h.navigate('depot');assert.match(h.content(),/Hillside Grove/);assert.match(h.content(),/12\.4 t/);
   h.navigate('permissions');assert.match(h.content(),/Access is active/);
   h.navigate('activity');assert.match(h.content(),/Harvest confirmed/);
   h.navigate('industry');assert.match(h.content(),/122 t/);assert.match(h.content(),/SEPARATE SYNTHETIC COHORT/);
-  h.navigate('sms');assert.match(h.content(),/3 harvest records \(24\.30 tonnes\)/);
+  h.navigate('sms');assert.match(h.content(),/6 harvest records \(37\.60 tonnes\)/);
   await h.submit('Harvested 2 tonnes of wheat from North Field');await h.submit('YES');
-  h.navigate('overview');assert.match(h.content(),/26\.30/);
-  assert.equal(h.requests.length,0);assert.equal(JSON.parse(h.storage.get('terraviva-v2')).records.length,4);
+  h.navigate('overview');assert.match(h.content(),/39\.60/);
+  assert.equal(h.requests.length,0);assert.equal(JSON.parse(h.storage.get('terraviva-v2')).records.length,7);
 });
 
 test('sample never populates a connected private depot and disconnect restores the browser example',async()=>{
@@ -95,31 +95,31 @@ test('sample never populates a connected private depot and disconnect restores t
   await h.connect();assert.doesNotMatch(h.content(),/Ana García|ILLUSTRATIVE SENSOR SNAPSHOT/);
   h.navigate('depot');assert.match(h.content(),/No harvests yet/);
   h.navigate('industry');assert.doesNotMatch(h.content(),/SEPARATE SYNTHETIC COHORT/);
-  h.disconnect();h.navigate('overview');assert.match(h.content(),/24\.30/);
+  h.disconnect();h.navigate('overview');assert.match(h.content(),/37\.60/);
   assert.equal(h.storageWrites.length,0);
 });
 
 test('empty edited legacy wallets show a separate sample without losing saved data',async()=>{
  for(const extra of [{events:[{text:'old event'}]},{sensors:{version:1,readings:[]}},{processed:{old:'SUMMARY'}},{commercial:true},{futureField:1}]){
   const saved={...Core.initial(),...extra},h=dashboard({localState:saved});
-  assert.match(h.content(),/24\.30/);assert.match(h.content(),/Ana García/);
+  assert.match(h.content(),/37\.60/);assert.match(h.content(),/Ana García/);
   await h.submit('Harvested 2 tonnes of wheat from North Field');await h.submit('YES');
   assert.deepEqual(JSON.parse(h.storage.get('terraviva-v2')),saved);
-  assert.equal(JSON.parse(h.storage.get('terraviva-showcase-ana-v1')).records.length,4);
+  assert.equal(JSON.parse(h.storage.get('terraviva-showcase-ana-v2')).records.length,7);
  }
 });
 
 test('explicit showcase URL bypasses an existing wallet without overwriting it',async()=>{
  const saved={...Core.initial(),records:[record('existing-barley')]};
  const h=dashboard({localState:saved,search:'?demo=ana'});
- assert.match(h.content(),/24\.30/);assert.doesNotMatch(h.content(),/existing-barley/);
+ assert.match(h.content(),/37\.60/);assert.doesNotMatch(h.content(),/existing-barley/);
  await h.submit('SUMMARY');assert.deepEqual(JSON.parse(h.storage.get('terraviva-v2')),saved);
  assert.equal(h.requests.length,0);
 });
 
 test('browser migration preserves meaningful or unknown saved state',()=>{
   for(const saved of [{...Core.initial(),events:[{text:'Deleted my records'}]}, {...Core.initial(),commercial:true}, {...Core.initial(),sensors:{version:1,readings:[]}}, {...Core.initial(),pending:{kind:'harvest'}}, {...Core.initial(),processed:{id:'reply'}}, {...Core.initial(),futureField:true}])assert.equal(Core.browserDemo(saved),saved);
-  assert.equal(Core.initial().records.length,0);assert.equal(Core.browserDemo(null).records.length,3);
+  assert.equal(Core.initial().records.length,0);assert.equal(Core.browserDemo(null).records.length,6);
 });
 
 test('disconnected dashboard never reads or presents sensor values from local demo state',()=>{

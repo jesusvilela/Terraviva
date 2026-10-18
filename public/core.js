@@ -14,12 +14,15 @@ function browserDemo(saved,now=Date.now()){
 function demo(now=Date.now()){const day=86400000;return {records:[
  {id:'demo-record-1',product:'wheat',volume:12.4,date:'2026-10-12',field:'North Field',source:'illustrative farmer entry'},
  {id:'demo-record-2',product:'olives',volume:3.8,date:'2026-10-09',field:'Hillside Grove',source:'illustrative farmer entry'},
- {id:'demo-record-3',product:'wheat',volume:8.1,date:'2026-10-03',field:'River Flat',source:'illustrative farmer entry'}
+ {id:'demo-record-3',product:'chickpeas',volume:4.7,date:'2026-10-07',field:'River Flat',source:'illustrative farmer entry'},
+ {id:'demo-record-4',product:'tomatoes',volume:6.2,date:'2026-10-05',field:'Market Garden',source:'illustrative farmer entry'},
+ {id:'demo-record-5',product:'almonds',volume:2.4,date:'2026-10-04',field:'Hillside Grove',source:'illustrative farmer entry'},
+ {id:'demo-record-6',product:'wheat',volume:8.1,date:'2026-10-03',field:'River Flat',source:'illustrative farmer entry'}
  ],grants:[{id:'demo-grant-1',recipient:'COOP',fields:[...allowed],purpose:'Harvest coordination',expires:new Date(now+7*day).toISOString(),revoked:false}],commercial:false,pending:null,processed:{},events:[
  {time:new Date(now-1*day).toISOString(),text:'Granted COOP harvest access for 7 days'},
- {time:new Date(now-2*day).toISOString(),text:'Harvest confirmed: 8.1 t wheat'},
- {time:new Date(now-6*day).toISOString(),text:'Harvest confirmed: 3.8 t olives'},
- {time:new Date(now-10*day).toISOString(),text:'Harvest confirmed: 12.4 t wheat'}
+ {time:new Date(now-2*day).toISOString(),text:'Harvest confirmed: 6.2 t tomatoes'},
+ {time:new Date(now-6*day).toISOString(),text:'Harvest confirmed: 4.7 t chickpeas'},
+ {time:new Date(now-10*day).toISOString(),text:'Harvest confirmed: 3.8 t olives'}
  ]}}
 function active(g,now){return !g.revoked&&Date.parse(g.expires)>now}
 function event(s,text,now){s.events.unshift({text,time:new Date(now).toISOString()})}
