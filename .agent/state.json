@@ -1,6 +1,6 @@
 {
-  "task": "Guarded live jury SMS from the farmer demo",
-  "status": "implemented; deployment pending; activation blocked on Vercel authentication and Redis configuration",
-  "verification": ["npm test: 145 pass", "mocked provider: consent, code, disabled mode, fixed recipient, concurrent replay, global cap and ambiguous outcome checks", "npm run build passes", "git diff --check passes"],
+  "task": "Simplify farmer-facing Terraviva MVP for a 5-minute pitch",
+  "status": "simplified interface implemented; verified; deployment pending",
+  "verification": ["npm test: 145 pass", "main sample home renders Ana, three large actions, harvest total, access status and sensor snapshot", "private-depot isolation tests still pass", "npm run build passes", "git diff --check passes"],
   "limitations": ["No actual SMS sent", "Vercel environment-name inspection found only SMS_MODE and three Twilio keys", "Shared Redis, farmer authentication, recipient map, demo enable flag and presenter hash still required", "Inbound SMS channel is unchanged"]
 }
