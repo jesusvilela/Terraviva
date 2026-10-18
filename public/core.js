@@ -43,7 +43,7 @@ else if(/commercial|sell my|share/i.test(text))reply='Use the authenticated dash
 else {
 const m=text.match(/^(?:harvested|harvest)\s+(\d+(?:[.,]\d+)?)\s*(tonnes?|tons?|t|kg)\s+(?:of\s+)?([a-zA-Z ]{2,40}?)\s+from\s+([a-zA-Z0-9 -]{2,60})$/i);
 if(m){const volume=Number(m[1].replace(',','.'))*(m[2].toLowerCase()==='kg'?0.001:1);if(!Number.isFinite(volume)||volume<=0||volume>100000)reply='Please give a quantity above zero and at most 100000 tonnes.';else{s.pending={kind:'harvest',expires:now+600000,record:{product:m[3].trim().toLowerCase(),volume,field:m[4].trim(),date:new Date(now).toISOString().slice(0,10)}};reply='Record '+volume+' tonnes of '+m[3].trim().toLowerCase()+', '+m[4].trim()+', today? Reply YES within 10 minutes or CANCEL.'}}
-else reply='I could not interpret that. Try: Harvested 12 tonnes of wheat from North Field. Send HELP for commands.';
+else reply='I need the crop, amount and field. For example: Harvested 2 tonnes of tomatoes from North Field.';
 }
 s.processed[id]=reply;return {state:s,reply,duplicate:false}
 }
